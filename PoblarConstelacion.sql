@@ -169,7 +169,8 @@ SELECT
     EE.pctDescuentoGlobal,
     ED.pctImpuesto,
     ED.TotalImporte,
-    ED.TotalImpuesto AS TotalRetencion,
+    ED.TotalDescuento, 
+    ED.TotalImpuesto,
     ED.Total
 FROM AutopartesP2025.dbo.EntradaEncabezado EE
 INNER JOIN AutopartesP2025.dbo.EntradaDetalle ED
