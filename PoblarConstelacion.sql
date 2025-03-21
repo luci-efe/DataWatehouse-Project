@@ -33,7 +33,7 @@ SELECT
      C.CalleNumero,
      C.Colonia,
      C.Ciudad,
-     C.Estado,
+     COALESCE(E.Descripcion, 'Desconocido') AS Estado,
      C.Pais,
      C.CodigoPostal,
      C.ClienteTipo,
@@ -43,6 +43,8 @@ SELECT
      C.CondicionPago,
      C.ZonaVenta
 FROM AutopartesP2025.dbo.Cliente AS C
+LEFT JOIN AutopartesP2025.dbo.Estado AS E
+     ON C.Estado = E.Clave
 UNION
 SELECT 
      '999' AS Clave,
@@ -90,7 +92,7 @@ SELECT '999' AS Clave,
 SELECT DISTINCT
      UPPER(A.Clave) AS Clave,
      UPPER(A.Descripcion) AS Descripcion,
-     LOWER(A.Identificacion) AS Marca,
+     COALESCE(UPPER(G.Descripcion), 'Desconocido') AS Marca,
      A.ArticuloTipo AS Tipo,
      A.ArticuloGrupo AS Grupo,
      A.ArticuloClase AS Clase,
@@ -104,6 +106,8 @@ SELECT DISTINCT
      A.UbicacionAlmacen,
      A.UbicacionClave
 FROM AutopartesP2025.dbo.Articulo AS A
+LEFT JOIN AutopartesP2025.dbo.ArticuloGrupo AS G
+     ON A.ArticuloGrupo = G.Clave
 UNION 
 SELECT '999' AS Clave, 
      'Desconocido' AS Descripcion,
